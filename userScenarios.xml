@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration defaulthash="a0a4dd7389369e2e0629cc7708f57dee">
+    <TechnologyProperties>
+        <DotNet>true</DotNet>
+    </TechnologyProperties>
+    <UIAvailabilityProperties>
+        <UIProblemPatterns>true</UIProblemPatterns>
+    </UIAvailabilityProperties>
+
+    <job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_2_0.xsd"
+                     version="2.0">
+        <schedule>
+<!-- CPULoadJourneyService START -->
+            <!-- Plugin start job definition -->
+            <job>
+                <name>CPULoadJourneyServiceStart</name>
+                <group>Scenario</group>
+                <description>CPU Load Journey Service - plugin start job</description>
+                <job-class>com.dynatrace.easytravel.pluginscheduler.PluginJob</job-class>
+                <durability>true</durability>
+                <recover>false</recover>
+                <job-data-map>
+                    <entry>
+                        <key>pluginName</key>
+                        <value>CPULoadJourneyService</value>
+                    </entry>
+                    <entry>
+                        <key>pluginAction</key>
+                        <value>start</value>
+                    </entry>
+                </job-data-map>
+            </job>
+
+            <!-- Plugin stop job definition -->
+            <job>
+                <name>CPULoadJourneyServiceStop</name>
+                <group>Scenario</group>
+                <description>CPU Load Journey Service - plugin stop job</description>
+                <job-class>com.dynatrace.easytravel.pluginscheduler.PluginJob</job-class>
+                <durability>true</durability>
+                <recover>false</recover>
+                <job-data-map>
+                    <entry>
+                        <key>pluginName</key>
+                        <value>CPULoadJourneyService</value>
+                    </entry>
+                    <entry>
+                        <key>pluginAction</key>
+                        <value>stop</value>
+                    </entry>
+                </job-data-map>
+            </job>
+
+            <!-- Trigger definition. It contains chainJob parameters -->
+            <trigger>
+                <cron>
+                    <name>CPULoadJourneyServiceTrigger</name>
+                    <job-name>CPULoadJourneyServiceStart</job-name>
+                    <job-group>Scenario</job-group>
+                    <job-data-map>
+                        <entry>
+                            <!-- name of the job that should be executed after this job -->
+                            <key>chainJobName</key>
+                            <value>CPULoadJourneyServiceStop</value>
+                        </entry>
+                        <entry>
+                            <!-- name of the job group that should be executed after this job -->
+                            <key>chainJobGroup</key>
+                            <value>Scenario</value>
+                        </entry>
+                        <entry>
+                            <!-- Delay of the chain job, in seconds -->
+                            <key>chainJobDelay</key>
+                            <!-- disable after 45 min-->
+                            <!--<value>2400</value> -->
+                            <value>300</value>
+                        </entry>
+                    </job-data-map>
+                    <!-- every 8am and 12pm -->
+                    <!-- <cron-expression>0 0 8/12 * * ?</cron-expression> -->
+                    <!-- <cron-expression>0 0 15 ? * 4/2 *</cron-expression> -->
+                    <cron-expression>0 0/15 0 ? * * *</cron-expression>
+                </cron>
+            </trigger>
+<!-- CPULoadJourneyService END -->
+        <!-- Plugin dummy job definition -->
+        <job>
+            <name>DummyJobStart</name>
+            <group>DummyJobGroup</group>
+            <description> ----- Dummy job ----- </description>
+            <job-class>com.dynatrace.easytravel.pluginscheduler.SchedulerStatus</job-class>
+            <durability>true</durability>
+            <recover>false</recover>
+            <job-data-map>
+                <entry>
+                    <key>pluginName</key>
+                    <value>DummyJob</value>
+                </entry>
+                <entry>
+                    <key>pluginAction</key>
+                    <value>start</value>
+                </entry>
+            </job-data-map>
+        </job>
+
+        <!-- Trigger definition. It contains chainJob parameters -->
+        <trigger>
+            <cron>
+                <name>DummyJobTrigger</name>
+                <job-name>DummyJobStart</job-name>
+                <job-group>DummyJobGroup</job-group>
+                <!-- It will run every 1 minute -->
+                <cron-expression>0 * * ? * *</cron-expression>
+            </cron>
+        </trigger>
+
+        <!-- Use this to run job 60 seconds after start.
+        <trigger>
+            <simple>
+                <name>OneDummyJobTrigger</name>
+                <job-name>DummyJobStart</job-name>
+                <job-group>DummyJobGroup</job-group>
+                <start-time-seconds-in-future>60</start-time-seconds-in-future>
+                <repeat-count>0</repeat-count>
+                <repeat-interval>0</repeat-interval>
+            </simple>
+        </trigger>
+    -->
+        </schedule>
+    </job-scheduling-data>
+</configuration>
