@@ -80,8 +80,7 @@
                     </job-data-map>
                     <!-- every 8am and 12pm -->
                     <!-- <cron-expression>0 0 8/12 * * ?</cron-expression> -->
-                    <!-- <cron-expression>0 0 15 ? * 4/2 *</cron-expression> -->
-                    <cron-expression>0 */15 * ? * *</cron-expression>
+                    <cron-expression>0 0 15 ? * 4/2 *</cron-expression>
                 </cron>
             </trigger>
 <!-- CPULoadJourneyService END -->
