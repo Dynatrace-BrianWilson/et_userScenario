@@ -75,12 +75,11 @@
                             <key>chainJobDelay</key>
                             <!-- disable after 45 min-->
                             <!--<value>2400</value> -->
-                            <value>300</value>
+                            <value>2400</value>
                         </entry>
                     </job-data-map>
-                    <!-- every 8am and 12pm -->
-                    <!-- <cron-expression>0 0 8/12 * * ?</cron-expression> -->
-                    <cron-expression>0 0 15 ? * MON,WED,FRI *</cron-expression>
+                    <!-- <cron-expression0 0 15 ? * 4/2 */cron-expression> -->
+                    <cron-expression>0 0 0/3 ? * * *</cron-expression>
                 </cron>
             </trigger>
 <!-- CPULoadJourneyService END -->
