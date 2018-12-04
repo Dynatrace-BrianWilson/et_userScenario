@@ -73,13 +73,13 @@
                         <entry>
                             <!-- Delay of the chain job, in seconds -->
                             <key>chainJobDelay</key>
-                            <!-- disable after 45 min-->
+                            <!-- disable after 40 min-->
                             <!--<value>2400</value> -->
                             <value>2400</value>
                         </entry>
                     </job-data-map>
-                    <!-- <cron-expression0 0 15 ? * 4/2 */cron-expression> -->
-                    <cron-expression>0 0 0/3 ? * * *</cron-expression>
+                    <!-- At 15:00:00 every day  -->
+                    <cron-expression>0 0 15 ? * * *</cron-expression>
                 </cron>
             </trigger>
 <!-- CPULoadJourneyService END -->
